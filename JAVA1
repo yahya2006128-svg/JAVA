@@ -10,6 +10,8 @@ interface Taxable {
 
 interface BonusCalculable {
     double calculateBonus(double performanceScore);}
+
+
 abstract class Employee implements Comparable<Employee>, Taxable, BonusCalculable {
     private String id;
     private String name;
@@ -20,13 +22,10 @@ abstract class Employee implements Comparable<Employee>, Taxable, BonusCalculabl
         this.name = name;
           this.baseSalary = baseSalary;
         this.joinDate = joinDate;}
-
-
 public abstract double calculateNetSalary();
   @Override
       public double calculateTax() {
         return calculateNetSalary() * TAX_RATE;   }
-
     @Override
     public int compareTo(Employee other) {
         return Double.compare(other.calculateNetSalary(), this.calculateNetSalary());}
@@ -53,6 +52,10 @@ class FullTimeEmployee extends Employee {
     @Override
     public double calculateBonus(double performanceScore) {
         return baseSalary * 0.10 * performanceScore;}}
+
+
+
+
 class ContractorEmployee extends Employee {
     private int hourlyRate;
     private int hoursWorked;
@@ -77,17 +80,15 @@ class ContractorEmployee extends Employee {
 public class PayrollSystem {
     public static void main(String[] args) {
         List<Employee> employees = new ArrayList<>();
-        
-        employees.add(new FullTimeEmployee("1", "Ahmed", 5000, LocalDate.of(2020, 3, 15), 1000));
-        employees.add(new FullTimeEmployee("2", "Sara", 7000, LocalDate.of(2018, 6, 1), 1500));
-        employees.add(new ContractorEmployee("3", "Ali", LocalDate.of(2021, 1, 10), 40, 160));
-        employees.add(new ContractorEmployee("4", "Mona", LocalDate.of(2019, 11, 20), 50, 100));
+        employees.add(new FullTimeEmployee("1", "yahya", 5670, LocalDate.of(2006, 8, 6), 1150));
+        employees.add(new FullTimeEmployee("2", "mohammed", 7899, LocalDate.of(2007, 6, 1), 2566));
+        employees.add(new ContractorEmployee("3", "khlid", LocalDate.of(2008, 1, 10), 40, 160));
+        employees.add(new ContractorEmployee("4", "yasser", LocalDate.of(2011, 11, 20), 50, 100));
 
         System.out.println("--- Employees List ---");
         for (Employee e : employees) {
             System.out.println(e);
         }
-
         Collections.sort(employees);
         System.out.println("\n--- Sorted by Net Salary (Descending) ---");
         for (Employee e : employees) {
@@ -103,7 +104,6 @@ public class PayrollSystem {
               totalTax += e.calculateTax();
                totalBonus += e.calculateBonus(score);
           }
-
         System.out.println("\n--- Financial Summary ---");
           System.out.println("Total Taaxes " + totalTax);
            System.out.println("Total Bonuses: " + totalBonus);
